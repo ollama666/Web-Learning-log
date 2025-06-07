@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羊驼的Moon Light</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div>
+        <img src="./bg.jpg" alt="" id="bg">
+        <img src="./moon.png" alt="" id="moon">
+        <img src="./mountain.png" alt="" id="mountain">
+        <img src="./road.png" alt="" id="road">
+        <h2 id="text">Welcome羊驼</h2>
+    </div>
+    <script>
+        let bg = document.getElementById('bg');
+        let moon = document.getElementById('moon');
+        let mountain = document.getElementById('mountain');
+        let road = document.getElementById('road');
+        let text = document.getElementById('text');
+
+        window.addEventListener('scroll',function(){
+        // 格式window.addEventListener(type, listener[, options]);
+        //     type为必选,例如scroll('监听滚动');resize('监听窗口大小的改变');'load'('加载');'click'('点击');keydown('按键落下')	
+        //     listener（必选）回调函数，事件触发时执行。
+        //     options（可选）
+        //     配置对象，用于调整监听行为，常见属性：
+        //     属性名	类型	默认值	说明
+        //     capture	Boolean	false	是否在事件捕获阶段触发（通常用默认值 false，即冒泡阶段触发）
+        //     passive	Boolean	false	是否为被动监听，提升滚动性能（详见下文）
+        //     once	Boolean	false	是否只触发一次，触发后自动移除监听器
+        //     signal	AbortSignal	null	使用 AbortController 取消监听（现代浏览器特性）
+        let value = window.scrollY
+        // 获取鼠标滚动的像素 window可省略(因为scrollY默认是window的对象属性)
+        bg.style.transform = `translateY(${value * 0.5}px)`;
+        moon.style.transform = `translateX(${-value * 0.5}px)`;
+        mountain.style.transform = `translateY(${-value * 0.15}px)`;
+        road.style.transform = `translateY(${value * 0.15}px)`;
+        text.style.transform = `translate(${value * 2}px,${value * 1.5}px)`;
+        // transform用GPU渲染,性能更佳
+            })
+    </script>
+</body>
+</html>
