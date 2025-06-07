@@ -1,0 +1,160 @@
+/* 简单解释一下吧 ,有些是大佬的解释 https://github.com/SCUTBrothers/Html-CSS-Tutorial-For-Beginners-Learning-Materials-of-Youtube-Video-*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* 常规流程 */
+body {
+    width: 100%;
+    min-height: 1500px;
+    background: #0a2a43;
+}
+/* 运用最小高度,防止由于内容的不够,导致无法展示动画.设置背景颜色与内容相呼应 */
+div {
+    position: relative;             /*子绝父相,使子的参照物为他的父,这一步是为了在后面的图片脱标后有参照物*/
+    display: flex;      /*设置flex布局,使字体更好显示到中间*/                  
+    width: 100%;        
+    height: 100vh;      /*设置高度,防止被压缩*/
+    justify-content: center;        /*字体居中*/
+    align-items: center;
+    overflow: hidden;           /*隐藏超出的图像*/
+}
+
+div::before {
+    content: '';
+    position: absolute;             /*子绝父相*/
+    width: 100%;
+    height: 100px;                  
+    bottom: 0;                       /*使其在div的底部*/   
+    background: linear-gradient(to top, #0a2a43, transparent);
+    /* liner-gradient解释，首先选择颜色渐变方向，然后选择颜色，结束时颜色的选择 */
+    z-index: 10000;
+    /* 
+        github上一个大佬的解释    
+        在div底部添加一个与body同宽，高度为100px的完全透明线性渐变区域
+    */
+
+    /* 
+        与背景颜色相同的线性渐变加上后面的颜色混叠，能够在底部达到模糊边缘的效果，
+        使得边缘不会那么明显，图像能够更好地融入背景区域。
+        不知道啥设计原理....
+    */
+}
+
+div::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #0a2a43;
+    mix-blend-mode: color;
+    /* 不遮挡图片颜色，与将图片可以显现在颜色上.不会完全覆盖下层元素，而是将伪元素的颜色与下层元素的亮度混合（保留下层的明暗细节）。 */
+    z-index: 10000;
+}
+
+div img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 
+        通过给四张图像同时设置绝对定位，并将它们左上边界点设置
+        到包含块原点(左上角点)，达到将四张图像层叠在一起的目的    
+    */
+    width: 100%;
+    height: 100%;
+
+    /* 
+    这个也是大佬的解释
+    object-fit: cover; 
+        * 将替换元素(图片)填满整个内容区 
+        * 保持原图片的比例
+        * 可能会造成图片被裁剪的问题
+        * ref: [CSS3 object-fit和object-position_w3cschool](https://www.w3cschool.cn/lugfe/lugfe-6lwy25zj.html)
+
+    关于object-fit:
+        * 详细解读：[半深入理解CSS3 object-position/object-fit属性 « 张鑫旭-鑫空间-鑫生活](https://www.zhangxinxu.com/wordpress/2015/03/css3-object-position-object-fit/)
+            * 博客关键内容：
+                1. 替换元素为不受可视格式化模型控制的元素，通常哟拥有固定的尺寸：固定宽度、固定高度和固定比率。
+                    常见替换元素为<img>、<iframe>、<video>等
+                2. <img>是替换元素，通过img src链接插入的图片为替换内容
+                3. width和height设定的是<img>元素的尺寸
+                4. object-fit控制的是src插入的替换内容(图片)的行为
+                
+    * 关于object-fit: cover的个人补充
+        * cover对图片的控制，就相当于我们平常对图片的放缩控制行为。我们将鼠标放在图像的右下角，
+            然后拖动鼠标缩放图像，使得图片边界贴着<img>元素的边界(右边界与右边界贴紧或者下边界与
+            下边界贴紧)，**直到图片占满<img>元素的内容区**。另外需要注意的是，cover控制过程中，
+            不改变图片的比例，就像我们通常拖动鼠标放缩图片，不会改变图片比例一样。
+
+        * 类似问题：[css - object-fit, object-positioning and absolute positioning - Stack Overflow](https://stackoverflow.com/questions/55415719/object-fit-object-positioning-and-absolute-positioning)
+        * 在线测试： [object-fit:cover](https://codepen.io/scutbrothers/pen/KKaeGpX)
+        * 应用： [(205) How to use CSS object-fit to control your images - YouTube](https://www.youtube.com/watch?v=6yAAV-uP0po)
+    */
+    /*我的理解其实就是拉伸图像,使其比例不变,并且使宽和高有一个和设置的大小相同*/
+    object-fit: cover;
+    /*pointer-events这个怎么说呢,想象你面前有一块玻璃（元素 A），玻璃后面有一个按钮（元素 B）：
+默认情况：你点击玻璃，会触发玻璃的点击事件，按钮不会响应（因为玻璃挡住了）,大概就是这样*/
+    pointer-events:none;
+}
+
+#text{
+    position: relative;
+    /* 
+        z-index属性值可以不需要定义。定义的话能够更好的操纵文档流平面外
+        的元素的堆叠顺序 
+    */
+    /* z-index: 1; */
+    z-index: 1;
+
+    color: #fff;
+    font-size: 6vw; /* 1vw=视口宽度的1% */
+}
+
+#road {
+    z-index: 2;
+}
+/* 
+    **重要内容-元素堆叠顺序**
+    div::before、div::after、img和h2同处于一个堆叠上下文当中
+
+    按元素在div当中的顺序进行排列，并给出它们的定位和z-index
+    div::before
+        * postion: absolute
+        * z-index: 10000
+
+    div::after
+        * postion: absolute
+        * z-index: 10000
+
+    img
+        * position: absolute
+        * z-index(未定义，默认为auto)
+
+    #road
+        * posiiton: absolute
+        * z-index: 2
+    
+    #text
+        * position: relative
+        * z-index(未定义，默认为auto)
+
+    堆叠顺序规则(ref: [Learn Z-Index Using a Visualization Tool](https://thirumanikandan.com/posts/learn-z-index-using-a-visualization-tool))
+        同级堆叠上下文中，元素堆叠顺序
+        - Positioned elements with negative z-index values
+        - Non positioned elements - elements with value static
+        - Positioned elements with a z-index value of auto
+        - Positioned elements with positive z-index values
+        还需要加两条
+        - 相同z-index的positioned elments，后定义的元素显示在更前面
+        - z-index均为auto的positioned elements, 后定义的元素显示在更前面
+    堆叠顺序规则测试
+        [z-index](https://codepen.io/scutbrothers/pen/LYxrxZx)
+
+    根据上述规则，该例子中元素的堆叠顺序为: 
+        div::after > div::before > #road > #text > img
+
+
+*/
