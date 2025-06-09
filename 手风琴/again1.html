@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>羊驼的小窝</title>
+    <style>
+        /* 这是模仿的一个B站up主 山羊做的 https://space.bilibili.com/266664645?spm_id_from=333.337.search-card.all.click 推荐你们关注一下这个美女程序员 */
+        /* 基本上没有什么改变，因为我原有的改变，最后发现不如原版的简洁好用 */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            /* 设置弹性盒子 */
+            justify-content: center;
+            /* 居中 */
+            align-items: center;
+            height: 100vh;
+        }
+
+        .shell {
+            display: flex;
+
+            width: 90%;
+            height: 700px;
+        }
+
+        .box {
+            flex: 1;
+            overflow: hidden;
+            /* 隐藏超出的部分 */
+            transition: .5s;
+            /* 动画的实现时间 */
+            margin: 0 20px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, .5);
+            border-radius: 20px;
+            border: 10px solid #fff;
+            background-color: #fff;
+        }
+
+        .box>img{
+            width: 200%;
+            /* 这个是个很重要的地方，如果没有设置这个会使图片的变化不是很光滑，会刷新一下 */
+            height: 85%;
+            object-fit: cover;
+            /* 这个也是我第一个1project中出现过的，就是等比例的缩放图片，使宽或者高有一个符合div大小 */
+            transition: .5s;
+        }
+
+        .box>span{
+            font: 200 45px '优设标题黑';
+            text-align: center;
+            height: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box:hover{
+            flex-basis: 40%;
+            /* 缩放的大小，也就是缩放后占shell的40% */
+        }
+        .box:hover>img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <div class="box"><img src="img (1).jpg"><span>Snow</span></div>
+        <div class="box"><img src="img (2).jpg"><span>Heaven</span></div>
+        <div class="box"><img src="img (3).jpg"><span>Cherry Blossom</span></div>
+        <div class="box"><img src="img (4).jpg"><span>Flower</span></div>
+        <div class="box"><img src="img (5).jpg"><span>Romance</span></div>
+    </div>  
+</body>
+</html>
